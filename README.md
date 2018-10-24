@@ -21,11 +21,12 @@ docker run --rm -it -p 2525:25 \
 	-e RELAY_USERNAME=username \
 	-e RELAY_PASSWORD=password \
 	fragaria/postfix-relay
-
 ```
+
 Send a test message
+
     $ telnet localhost 2525
-    220 tx-smtp-relay.yourhost.com ESMTP Postfix
+    220 relay.yourhost.com ESMTP Postfix
 
     helo localhost
     250 relay.yourhost.com

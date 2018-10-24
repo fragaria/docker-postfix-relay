@@ -8,6 +8,7 @@ RELAY_SECURITY_OPTIONS=${RELAY_SECURITY_OPTIONS:-noanonymous}
 RELAY_TLS_ENABLED=${RELAY_TLS_ENABLED:-yes}
 RELAY_TLS_SECURITY_LEVEL=${RELAY_TLS_SECURITY_LEVEL:-encrypt}
 RELAY_TLS_STARTTLS_OFFER=${RELAY_TLS_STARTTLS_OFFER:-yes}
+RELAY_NETWORKS=${RELAY_NETWORS:-10.0.0.0/8,127.0.0.0/8,172.17.0.0/16}
 
 # handle sasl
 echo "${RELAY_HOST} ${RELAY_USERNAME}:${RELAY_PASSWORD}" > /etc/postfix/sasl_passwd || exit 1
@@ -29,7 +30,7 @@ postconf "relayhost = ${RELAY_HOST}" || exit 1
 postconf "myhostname = ${RELAY_MYHOSTNAME}" || exit 1
 
 # Override what you want here. The 10. network is for kubernetes
-postconf 'mynetworks = ${RELAY_NETWORS:-10.0.0.0/8,127.0.0.0/8,172.17.0.0/16}' || exit 1
+postconf "mynetworks = ${RELAY_NETWORKS}" || exit 1
 
 # http://www.postfix.org/COMPATIBILITY_README.html#smtputf8_enable
 postconf 'smtputf8_enable = no' || exit 1
